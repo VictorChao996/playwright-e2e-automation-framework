@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    // --- 嚴格模式和類型安全的核心設定 ---
+    "strict": true,                         /* 啟用所有嚴格的類型檢查選項，這是最大化 TypeScript 好處的關鍵 */
+    "noImplicitAny": true,                  /* 在無法推斷類型時，會警告隱式的 'any' 類型 (包含在 strict 中) */
+    "strictNullChecks": true,               /* 嚴格檢查 null 和 undefined (包含在 strict 中) */
+    
+    // --- 模組和目標設定 ---
+    "target": "ES2022",                     /* 指定目標 JS 版本 */
+    "module": "commonjs",                   /* 指定模組系統 */
+    "esModuleInterop": true,                /* 允許使用 ES 模組導入 CommonJS 模組 */
+    "forceConsistentCasingInFileNames": true, /* 確保檔名大小寫一致性 */
+    
+    // --- Playwright 相關設定 ---
+    "types": [
+      "@playwright/test"                    /* 確保編輯器能識別 Playwright 的所有內建類型 */
+    ],
+    
+    // --- 其他常見設定 ---
+    "skipLibCheck": true,                   /* 跳過檢查類型宣告檔案，加快編譯速度 */
+    "outDir": "./dist",                     /* (可選) 設置編譯輸出的目錄，雖然 Playwright 直接運行 .ts 檔案 */
+    "rootDir": "./"                         /* 定義專案的根目錄 */
+  },
+  
+  // --- 告訴 TypeScript 要檢查哪些檔案 ---
+  "include": [
+    "tests/**/*.ts",                        /* 包含 'tests' 資料夾及其所有子資料夾中的 .ts 檔案 */
+    "playwright.config.ts",                 /* 包含 Playwright 的設定檔 */
+    "pages/**/*.ts"                  /* 如果您使用 Page Object Model，請包含相關檔案 */
+  ],
+  
+  // --- 告訴 TypeScript 忽略哪些檔案 (例如測試報告) ---
+  "exclude": [
+    "node_modules",
+    "test-results"
+  ]
+}
