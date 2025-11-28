@@ -1,7 +1,7 @@
 # Saucedemo 測試規格書
 
 ## 緣起
-[[playwright 速成學習]] 的 milestone 0 練習。
+[此專案](../README.md#milestone-0--依據待測網站規劃測試項目) 的 milestone 0 練習。
 
 ## 紀錄
 
@@ -66,28 +66,28 @@
 | --------------- | -------------------------------------------------------------- | ------------ | ---------- | ------------- | ------------------ |
 | 1               | **Login Page:** User Login with correct account & password     | p1           | Y          | V             | 主流程                |
 | 2               | **Login Page:** User Login with error account & password       | p2           | O          | V             | 非主流程               |
-| 3               | **Login Page:** User Login with empty account or password      | p3           | N          |               | 低頻率情境, 不需大量驗證      |
-| 4               | **Login Page:** User Login with locked out user account        | p3           | N          |               | 低頻率情境, 不需大量驗證      |
-| 5               | **Inventory Page:** Add Item to cart (btn)                     | p1           | Y          |               | 主流程                |
-| 6               | **Inventory Page:** Remove item from cart (remove btn)         | p1           | Y          |               | 主流程                |
-| 7               | **Inventory Page:** sorting selection - with name a-z          | p3           | N          |               | 對主流程影響小            |
-| 8               | **Inventory Page:** sorting selection - with name z-a          | p3           | N          |               | 對主流程影響小            |
-| 9               | **Inventory Page:** sorting selection - with price high to low | p3           | N          |               | 對主流程影響小            |
-| 10              | **Inventory Page:** sorting selection - with price low to high | p3           | N          |               | 對主流程影響小            |
-| 11              | **Inventory Page:** view item detail                           | p3           | N          |               | 對主流程影響小            |
-| 12              | **Inventory Page:** go to cart                                 | p1           | Y          |               | 主流程                |
-| 13              | **Cart Page:** Show the item with added to cart correctly      | p1           | Y          |               | 主流程                |
-| 14              | **Cart Page:** back to shopping                                | p2           | O          |               | 主流程                |
-| 15              | **Cart Page:** view item detail                                | p3           | N          |               | 對主流程影響小            |
-| 16              | **Cart Page:** remove item from cart                           | p1           | Y          |               | 主流程                |
-| 17              | **Cart Page:** checkout                                        | p1           | Y          |               | 主流程                |
-| 18              | **Check 1:** cancel (from checkout step 1)                     | p2           | O          |               | 主流程分支結果            |
-| 19              | **Check 1:** enter info and continue (to checkout step 2)      | p1           | Y          |               | 主流程                |
-| 20              | **Check 2:** cancel (from checkout step 2)                     | p2           | O          |               | 主流程分支結果            |
-| 21              | **Check 2:** check item with added to cart correctly           | p2           | O          |               | 後端資料, 應與 Cart 結果同步 |
-| 22              | **Check 2:** check price total correctly                       | p2           | O          |               | 可藉由後端 double check |
-| 23              | **Check 2:** Finish (complete order)                           | p1           | Y          |               | 主流程                |
-| 24              | **Check complete:** Back to home                               | p1           | Y          |               | 主流程                |
+| 3               | **Login Page:** User Login with empty account or password      | p3           | N          | X             | 低頻率情境, 不需大量驗證      |
+| 4               | **Login Page:** User Login with locked out user account        | p3           | N          | X             | 低頻率情境, 不需大量驗證      |
+| 5               | **Inventory Page:** Add Item to cart (btn)                     | p1           | Y          | V             | 主流程                |
+| 6               | **Inventory Page:** Remove item from cart (remove btn)         | p1           | Y          | V             | 主流程                |
+| 7               | **Inventory Page:** sorting selection - with name a-z          | p3           | N          | X             | 對主流程影響小            |
+| 8               | **Inventory Page:** sorting selection - with name z-a          | p3           | N          | X             | 對主流程影響小            |
+| 9               | **Inventory Page:** sorting selection - with price high to low | p3           | N          | X             | 對主流程影響小            |
+| 10              | **Inventory Page:** sorting selection - with price low to high | p3           | N          | X             | 對主流程影響小            |
+| 11              | **Inventory Page:** view item detail                           | p3           | N          | X             | 對主流程影響小            |
+| 12              | **Inventory Page:** go to cart                                 | p1           | Y          | V             | 主流程                |
+| 13              | **Cart Page:** Show the item with added to cart correctly      | p1           | Y          | V             | 主流程                |
+| 14              | **Cart Page:** back to shopping                                | p2           | O          | V             | 主流程                |
+| 15              | **Cart Page:** view item detail                                | p3           | N          | X             | 對主流程影響小            |
+| 16              | **Cart Page:** remove item from cart                           | p1           | Y          | V             | 主流程                |
+| 17              | **Cart Page:** checkout                                        | p1           | Y          | V             | 主流程                |
+| 18              | **Check 1:** cancel (from checkout step 1)                     | p2           | O          | V             | 主流程分支結果            |
+| 19              | **Check 1:** enter info and continue (to checkout step 2)      | p1           | Y          | V             | 主流程                |
+| 20              | **Check 2:** cancel (from checkout step 2)                     | p2           | O          | X             | 主流程分支結果            |
+| 21              | **Check 2:** check item with added to cart correctly           | p2           | O          | V             | 後端資料, 應與 Cart 結果同步 |
+| 22              | **Check 2:** check price total correctly                       | p2           | O          | V             | 可藉由後端 double check |
+| 23              | **Check 2:** Finish (complete order)                           | p1           | Y          | V             | 主流程                |
+| 24              | **Check complete:** Back to home                               | p1           | Y          | V             | 主流程                |
 |                 |                                                                |              |            |               |                    |
 
 ### Test scope

@@ -41,7 +41,7 @@ npx playwright test
 
 
 ## Milestones
-- 當前狀態：Doing Milestone 0
+- 當前狀態：Doing Milestone 2 done
 
 ### Milestone 0 — 依據待測網站規劃測試項目
 - 了解網站頁面架構（ex. 登入 / 商品 / 購物車 / 結帳）
@@ -110,4 +110,4 @@ npx playwright test
 
 
 ## References
-- [Playwright 官方文](https://playwright.dev/docs/intro)
+- [Playwright 官方文件](https://playwright.dev/docs/intro)
