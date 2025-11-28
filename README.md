@@ -41,7 +41,9 @@ npx playwright test
 
 
 ## Milestones
-- 當前狀態：Doing Milestone 2 done
+- 當前狀態：
+  - Milestone 3 done
+  - deciding next steps
 
 ### Milestone 0 — 依據待測網站規劃測試項目
 - 了解網站頁面架構（ex. 登入 / 商品 / 購物車 / 結帳）
@@ -68,15 +70,39 @@ npx playwright test
 - 加強斷言：商品清單、金額、提示訊息
 - 筆記：語義化選擇器比較
 
+
 ### Milestone 3 — Page Object Model（POM）
 - 建立 `/pages` 目錄
 - 建立各頁面對應的 Page class，例如：
-  - `login.page.js`
-  - `products.page.js`
-  - `checkout.page.js`
+  - `login.page.ts`
+  - `inventory.page.ts`
+  - `cart.page.ts`
+  - `checkout.page.ts`
+  - `checkout2.page.ts`
+  - `checkoutComplete.page.ts`
 - 使用 POM 重寫完整購物流程 E2E
 - 減少測試檔邏輯，僅保留流程
 - README：POM 架構圖與設計理念
+
+#### POM 架構簡易圖
+
+```text
+tests/
+  └─ *.spec.ts
+        │
+        ▼
+pages/
+  ├─ login.page.ts
+  ├─ inventory.page.ts
+  ├─ cart.page.ts
+  ├─ checkout.page.ts
+  ├─ checkout2.page.ts
+  └─ checkoutComplete.page.ts
+```
+
+**說明：**
+- 測試流程（spec 檔）只描述操作步驟與驗證。
+- 每個頁面元件封裝於對應的 page class，統一管理定位器與操作方法。
 
 ### Milestone 4 — Data Driven Testing
 - 建立測試資料檔案，例如 `test-data.json`
