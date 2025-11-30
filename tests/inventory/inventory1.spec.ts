@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Inventory page tests
+ * @description This file contains tests for the inventory page functionality, POM implementation is used.
+ */
+
 import { expect, test } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';

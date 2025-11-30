@@ -1,3 +1,8 @@
+/**
+ * @fileoverview End-to-End Shopping Process Test
+ * @description This file contains an end-to-end test for the shopping process using POM.
+ */
+
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
 import { InventoryPage } from '../../pages/inventory.page';

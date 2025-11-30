@@ -42,8 +42,7 @@ npx playwright test
 
 ## Milestones
 - 當前狀態：
-  - Milestone 3 done
-  - deciding next steps
+  - Milestone 3.5 done
 
 ### Milestone 0 — 依據待測網站規劃測試項目
 - 了解網站頁面架構（ex. 登入 / 商品 / 購物車 / 結帳）
@@ -104,10 +103,18 @@ pages/
 - 測試流程（spec 檔）只描述操作步驟與驗證。
 - 每個頁面元件封裝於對應的 page class，統一管理定位器與操作方法。
 
+### Milestone 3.5 — Fixture 優化
+- 建立 `/fixture` 目錄
+- 建立 `base.fixture.ts`，包含共用前置條件
+- 使用 Fixture 注入 Page class 實例
+- 重構測試檔，使用 Fixture 提供的 Page 物件
+
+
 ### Milestone 4 — Data Driven Testing
+- 將測試流程參數化 (可搭配 Fixture Options 使用)
+  - ex. 將登入流程參數化
+  - ex. 商品流程可選擇性參數化  
 - 建立測試資料檔案，例如 `test-data.json`
-- 將登入流程參數化
-- 商品流程可選擇性參數化
 - 使用 `test.each()` 執行多筆測試資料
 - 加入錯誤帳密測試案例
 - README：如何擴充測試資料

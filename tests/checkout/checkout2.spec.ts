@@ -1,19 +1,18 @@
-import { expect, test } from '@playwright/test';
+/**
+ * @fileoverview Checkout Functionality Tests
+ * @description This file contains tests for the checkout page functionality using POM and fixtures.
+ */
+
+import { expect } from '@playwright/test';
+import { test } from '../../fixture/base.fixture';
 import { CheckoutPage } from '../../pages/checkout.page';
 import { Checkout2Page } from '../../pages/checkout2.page';
 import { CheckoutCompletePage } from '../../pages/checkoutComplete.page';
-import { LoginPage } from '../../pages/login.page';
-import { InventoryPage } from '../../pages/inventory.page';
-import { CartPage } from '../../pages/cart.page';
 
 const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
 const cartPageUrl = 'https://www.saucedemo.com/cart.html';
-const checkoutPage1Url = 'https://www.saucedemo.com/checkout-step-one.html';
 const checkoutPage2Url = 'https://www.saucedemo.com/checkout-step-two.html';
 const checkoutCompleteUrl = 'https://www.saucedemo.com/checkout-complete.html';
-
-const account = 'standard_user';
-const password = 'secret_sauce';
 
 const itemsToAdd = [
 	{ title: 'Sauce Labs Backpack', testIdSuffix: 'sauce-labs-backpack', price: 29.99 },
@@ -21,38 +20,15 @@ const itemsToAdd = [
 ];
 
 test.describe('Checkout Functionality', () => {
-	let checkoutPage: CheckoutPage;
 	let checkout2Page: Checkout2Page;
 	let checkoutCompletePage: CheckoutCompletePage;
 
-	test.beforeEach(async ({ page }) => {
-		const loginPage = new LoginPage(page);
-		await loginPage.goto();
-		await loginPage.login(account, password);
-		const inventoryPage = new InventoryPage(page);
-
-		//add items to cart before each test
-		for (const item of itemsToAdd) {
-			await inventoryPage.addProductToCart(item.testIdSuffix);
-		}
-		await inventoryPage.gotoCartPage();
-
-		const cartPage = new CartPage(page);
-		await cartPage.goto();
-		await cartPage.gotoCheckout();
-		expect(page).toHaveURL(checkoutPage1Url);
-
-		checkoutPage = new CheckoutPage(page);
-		await checkoutPage.goto();
-		await expect(page).toHaveURL(checkoutPage1Url);
-	});
-
-	test('Cancel checkout 1', async ({ page }) => {
+	test('Cancel checkout 1', async ({ checkoutPage, page }) => {
 		await checkoutPage.cancelCheckout();
 		await expect(page).toHaveURL(cartPageUrl);
 	});
 
-	test('Cancel checkout 2', async ({ page }) => {
+	test('Cancel checkout 2', async ({ checkoutPage, page }) => {
 		await checkoutPage.fillCheckoutInformation('John', 'Doe', '12345');
 		await checkoutPage.continueToNextStep();
 		checkout2Page = new Checkout2Page(page);
@@ -63,7 +39,7 @@ test.describe('Checkout Functionality', () => {
 		await expect(page).toHaveURL(inventoryPageUrl);
 	});
 
-	test('Checkout overview and finish', async ({ page }) => {
+	test('Checkout overview and finish', async ({ checkoutPage, page }) => {
 		await test.step('Enter checkout information and continue', async ({}) => {
 			await checkoutPage.fillCheckoutInformation('John', 'Doe', '12345');
 			checkoutPage.continueToNextStep();
