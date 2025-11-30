@@ -1,6 +1,9 @@
-import { test, expect } from '@playwright/test';
+/**
+ * @fileoverview End-to-End Code Generation Test
+ * @description This file contains a sample end-to-end test recorded by Playwright Codegen tool.
+ */
 
-// NOTE: This is a sample test file record by Playwright Codegen tool & smallest modifications made for better readability
+import { test, expect } from '@playwright/test';
 
 test('Main Process', async ({ page }) => {
 	const rootUrl = 'https://www.saucedemo.com';
