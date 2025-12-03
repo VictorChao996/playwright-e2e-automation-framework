@@ -1,11 +1,12 @@
 import { expect, test } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
+import DATA_INDEX from '../../test-data/data-index';
 
 const loginPageUrl = 'https://www.saucedemo.com/';
 const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
-const account = 'standard_user';
-const password = 'secret_sauce';
-const errorMsgString = 'Epic sadface: Username and password do not match any user in this service';
+const account = DATA_INDEX.USERS.STANDARD_USER.username;
+const password = DATA_INDEX.USERS.STANDARD_USER.password;
+const errorMsgString = DATA_INDEX.MESSAGE.loginMessage.invalidCredentials;
 
 test.describe('Login Validation', () => {
 	let loginPage: LoginPage;
