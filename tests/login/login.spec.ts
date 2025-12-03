@@ -4,9 +4,33 @@ import DATA_INDEX from '../../test-data/data-index';
 
 const loginPageUrl = 'https://www.saucedemo.com/';
 const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
-const account = DATA_INDEX.USERS.STANDARD_USER.username;
-const password = DATA_INDEX.USERS.STANDARD_USER.password;
-const errorMsgString = DATA_INDEX.MESSAGE.loginMessage.invalidCredentials;
+
+const validUsers = [
+	DATA_INDEX.USERS.STANDARD_USER,
+	DATA_INDEX.USERS.PROBLEM_USER,
+	DATA_INDEX.USERS.PERFORMANCE_GLITCH_USER,
+	DATA_INDEX.USERS.ERROR_USER,
+	DATA_INDEX.USERS.VISUAL_USER,
+];
+
+const invalidUsers = [
+	{ username: null, password: null, errorMsg: DATA_INDEX.MESSAGE.loginMessage.emptyUsername },
+	{
+		username: 'invalid_user',
+		password: 'invalid_password',
+		errorMsg: DATA_INDEX.MESSAGE.loginMessage.invalidCredentials,
+	},
+	{
+		username: 'standard_user_with_empty_password',
+		password: null,
+		errorMsg: DATA_INDEX.MESSAGE.loginMessage.emptyPassword,
+	},
+	{
+		username: DATA_INDEX.USERS.LOCKED_OUT_USER.username,
+		password: DATA_INDEX.USERS.LOCKED_OUT_USER.password,
+		errorMsg: DATA_INDEX.MESSAGE.loginMessage.lockedOutUser,
+	},
+];
 
 test.describe('Login Validation', () => {
 	let loginPage: LoginPage;
@@ -17,13 +41,19 @@ test.describe('Login Validation', () => {
 		expect(loginPage.page.url()).toBe(loginPageUrl);
 	});
 
-	test('login with validate credentials', async ({ page }) => {
-		await loginPage.login(account, password);
-		await expect(page).toHaveURL(inventoryPageUrl);
+	validUsers.forEach((user) => {
+		test(`login with valid user: ${user.username}`, async ({ page }) => {
+			await loginPage.login(user.username, user.password);
+			await expect(page).toHaveURL(inventoryPageUrl);
+		});
 	});
 
-	test('login with error credentials', async ({ page }) => {
-		await loginPage.login('invalid_user', 'invalid_password');
-		await expect(loginPage.errorMsg).toHaveText(errorMsgString);
+	invalidUsers.forEach((user) => {
+		test(`login with invalid user: ${user.username ?? '<empty>'}`, async ({ page }) => {
+			const username = user.username ?? '';
+			const password = user.password ?? '';
+			await loginPage.login(username, password);
+			await expect(loginPage.errorMsg).toHaveText(user.errorMsg);
+		});
 	});
 });
