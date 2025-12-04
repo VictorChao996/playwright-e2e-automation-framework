@@ -17,7 +17,10 @@ type FixtureOptions = {
 };
 
 export const test = base.extend<MyFixtures & FixtureOptions>({
-	itemsToAddOptions: [[], { scope: 'test' }],
+	itemsToAddOptions: [
+		[DATA_INDEX.PRODUCTS.BACKPACK, DATA_INDEX.PRODUCTS.BIKE_LIGHT],
+		{ scope: 'test' },
+	],
 	inventoryPage: async ({ page }, use) => {
 		const loginPage = new LoginPage(page);
 		await loginPage.goto();

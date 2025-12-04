@@ -35,6 +35,8 @@ npx playwright test
 ## Test Structure
 - `tests/`: Contains all test files organized by feature or module.
 - `pages/`: Contains page object models for different pages of the application.
+- `fixture/`: Contains custom fixtures for setting up test environments.
+- `test-data/`: Contains test data files for data-driven testing.
 - `utils/`: Contains utility functions and helpers for the tests.
 - `docs/`: Documentation related to the test scenarios and strategies.
 - `playwright.config.ts`: Configuration file for Playwright settings.
@@ -42,7 +44,7 @@ npx playwright test
 
 ## Milestones
 - 當前狀態：
-  - Milestone 3.5 done
+  - Milestone 4 done
 
 ### Milestone 0 — 依據待測網站規劃測試項目
 - 了解網站頁面架構（ex. 登入 / 商品 / 購物車 / 結帳）
@@ -114,10 +116,10 @@ pages/
 - 將測試流程參數化 (可搭配 Fixture Options 使用)
   - ex. 將登入流程參數化
   - ex. 商品流程可選擇性參數化  
-- 建立測試資料檔案，例如 `test-data.json`
-- 使用 `test.each()` 執行多筆測試資料
-- 加入錯誤帳密測試案例
-- README：如何擴充測試資料
+- 建立 `test-data/` 來管理測試資料
+  - ex. 使用者資料
+  - ex. 商品資料
+- test-data 搭配 fixture option 使用 (根據測試資料動態設定測試前置 (fixture))
 
 ### Milestone 5 — 複雜元素處理
 - 操作 iFrame
