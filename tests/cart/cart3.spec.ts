@@ -1,6 +1,6 @@
 /**
  * @fileoverview Cart Functionality Tests
- * @description This file contains tests for the cart page functionality using POM ,fixtures, and test data.
+ * @description This file contains tests for the cart page functionality using POM ,fixtures,fixture options, and test data.
  */
 
 import { expect } from '@playwright/test';
@@ -11,9 +11,18 @@ const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
 const checkoutPageUrl = 'https://www.saucedemo.com/checkout-step-one.html';
 
 //NOTE: 可隨時調整加入購物車的商品
-const itemsToAdd = [DATA_INDEX.PRODUCTS.BACKPACK, DATA_INDEX.PRODUCTS.BIKE_LIGHT];
+const itemsToAdd = [
+	DATA_INDEX.PRODUCTS.BACKPACK,
+	DATA_INDEX.PRODUCTS.BIKE_LIGHT,
+	DATA_INDEX.PRODUCTS.FLEECE_JACKET,
+];
 
 test.describe('Cart Functionality', () => {
+	//NOTE: fixture options 傳入 itemsToAdd
+	test.use({
+		itemsToAddOptions: [itemsToAdd, { scope: 'test' }],
+	});
+
 	test('check cart functionality', async ({ cartPage }) => {
 		const items = cartPage.getInventoryItems();
 		await expect(items).toHaveCount(itemsToAdd.length);
