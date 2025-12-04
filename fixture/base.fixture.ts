@@ -4,8 +4,7 @@ import { InventoryPage } from '../pages/inventory.page';
 import { CartPage } from '../pages/cart.page';
 import { CheckoutPage } from '../pages/checkout.page';
 import DATA_INDEX from '../test-data/data-index';
-
-const itemToAdd = [DATA_INDEX.PRODUCTS.BACKPACK, DATA_INDEX.PRODUCTS.BIKE_LIGHT];
+import { Product } from '../test-data/data-types';
 
 type MyFixtures = {
 	inventoryPage: InventoryPage;
@@ -13,7 +12,12 @@ type MyFixtures = {
 	checkoutPage: CheckoutPage;
 };
 
-export const test = base.extend<MyFixtures>({
+type FixtureOptions = {
+	itemsToAddOptions: Product[];
+};
+
+export const test = base.extend<MyFixtures & FixtureOptions>({
+	itemsToAddOptions: [[], { scope: 'test' }],
 	inventoryPage: async ({ page }, use) => {
 		const loginPage = new LoginPage(page);
 		await loginPage.goto();
@@ -24,8 +28,8 @@ export const test = base.extend<MyFixtures>({
 		const inventoryPage = new InventoryPage(page);
 		await use(inventoryPage);
 	},
-	cartPage: async ({ page, inventoryPage }, use) => {
-		for (const item of itemToAdd) {
+	cartPage: async ({ page, inventoryPage, itemsToAddOptions }, use) => {
+		for (const item of itemsToAddOptions) {
 			await inventoryPage.addProductToCart(item.testIdSuffix);
 		}
 		await inventoryPage.gotoCartPage();

@@ -1,6 +1,6 @@
 /**
  * @fileoverview Checkout Functionality Tests
- * @description This file contains tests for the checkout page functionality using POM, fixtures, and test data.
+ * @description This file contains tests for the checkout page functionality using POM, fixtures, fixture options, and test data.
  */
 
 import { expect } from '@playwright/test';
@@ -15,11 +15,25 @@ const cartPageUrl = 'https://www.saucedemo.com/cart.html';
 const checkoutPage2Url = 'https://www.saucedemo.com/checkout-step-two.html';
 const checkoutCompleteUrl = 'https://www.saucedemo.com/checkout-complete.html';
 
-const itemsToAdd = [DATA_INDEX.PRODUCTS.BACKPACK, DATA_INDEX.PRODUCTS.BIKE_LIGHT];
+const checkInfo = {
+	firstName: DATA_INDEX.USERS.STANDARD_USER.firstName,
+	lastName: DATA_INDEX.USERS.STANDARD_USER.lastName,
+	postalCode: DATA_INDEX.USERS.STANDARD_USER.postalCode,
+};
+const itemsToAdd = [
+	DATA_INDEX.PRODUCTS.BACKPACK,
+	DATA_INDEX.PRODUCTS.BIKE_LIGHT,
+	DATA_INDEX.PRODUCTS.RED_TSHIRT,
+	DATA_INDEX.PRODUCTS.FLEECE_JACKET,
+];
 
 test.describe('Checkout Functionality', () => {
 	let checkout2Page: Checkout2Page;
 	let checkoutCompletePage: CheckoutCompletePage;
+
+	test.use({
+		itemsToAddOptions: [itemsToAdd, { scope: 'test' }],
+	});
 
 	test('Cancel checkout 1', async ({ checkoutPage, page }) => {
 		await checkoutPage.cancelCheckout();
@@ -27,7 +41,11 @@ test.describe('Checkout Functionality', () => {
 	});
 
 	test('Cancel checkout 2', async ({ checkoutPage, page }) => {
-		await checkoutPage.fillCheckoutInformation('John', 'Doe', '12345');
+		await checkoutPage.fillCheckoutInformation(
+			checkInfo.firstName,
+			checkInfo.lastName,
+			checkInfo.postalCode,
+		);
 		await checkoutPage.continueToNextStep();
 		checkout2Page = new Checkout2Page(page);
 		await checkout2Page.goto();
@@ -39,7 +57,11 @@ test.describe('Checkout Functionality', () => {
 
 	test('Checkout overview and finish', async ({ checkoutPage, page }) => {
 		await test.step('Enter checkout information and continue', async ({}) => {
-			await checkoutPage.fillCheckoutInformation('John', 'Doe', '12345');
+			await checkoutPage.fillCheckoutInformation(
+				checkInfo.firstName,
+				checkInfo.lastName,
+				checkInfo.postalCode,
+			);
 			checkoutPage.continueToNextStep();
 			checkout2Page = new Checkout2Page(page);
 			await expect(page).toHaveURL(checkoutPage2Url);
@@ -58,7 +80,7 @@ test.describe('Checkout Functionality', () => {
 			//確認總金額正確
 			const subtotalLocator = checkout2Page.getSubTotalLabel();
 			const expectedSubtotal = itemsToAdd.reduce((sum, item) => sum + item.price, 0);
-			await expect(subtotalLocator).toHaveText(`Item total: $${expectedSubtotal.toFixed(2)}`);
+			await expect(subtotalLocator).toHaveText(`Item total: $${expectedSubtotal}`);
 		});
 
 		await test.step('finish checkout', async () => {
