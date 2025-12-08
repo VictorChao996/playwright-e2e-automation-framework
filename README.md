@@ -44,7 +44,7 @@ npx playwright test
 
 ## Milestones
 - 當前狀態：
-  - Milestone 4 done
+  - Milestone 4.5 done
 
 ### Milestone 0 — 依據待測網站規劃測試項目
 - 了解網站頁面架構（ex. 登入 / 商品 / 購物車 / 結帳）
@@ -120,6 +120,13 @@ pages/
   - ex. 使用者資料
   - ex. 商品資料
 - test-data 搭配 fixture option 使用 (根據測試資料動態設定測試前置 (fixture))
+
+### Milestone 4.5 - Import Export Improvement
+- 建立 config 目錄來管理專案設定
+- 建立 `config/config-index.ts` 來統一管理設定檔的
+- 建立 `pages/page-index.ts` 來統一管理 Page class 的匯出
+- 以個別引入的方式引入 test-data, pages, config
+- 重構測試檔，使用新的引入方式
 
 ### Milestone 5 — 複雜元素處理
 - 操作 iFrame
