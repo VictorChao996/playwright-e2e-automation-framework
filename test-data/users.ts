@@ -1,4 +1,6 @@
-const USERS = {
+import { User } from '../test-data/data-types';
+
+const USERS: Record<string, User> = {
 	STANDARD_USER: {
 		username: 'standard_user',
 		password: 'secret_sauce',

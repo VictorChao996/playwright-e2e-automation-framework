@@ -1,3 +1,5 @@
+import { Product } from './data-types';
+
 const PRODUCTS = {
 	BACKPACK: {
 		title: 'Sauce Labs Backpack',
@@ -29,6 +31,6 @@ const PRODUCTS = {
 		testIdSuffix: 'test.allthethings()-t-shirt-(red)',
 		price: 15.99,
 	},
-};
+} satisfies Record<string, Product>;
 
 export default PRODUCTS;

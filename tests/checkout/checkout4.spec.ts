@@ -1,30 +1,30 @@
 /**
  * @fileoverview Checkout Functionality Tests
- * @description This file contains tests for the checkout page functionality using POM, fixtures, fixture options, and test data.
+ * @description This file contains tests for the checkout page functionality using
+ * 1.POM
+ * 2.fixture
+ * 3.fixture options
+ * 4.test data.
+ * 5. Confix data import
  */
 
 import { expect } from '@playwright/test';
 import { test } from '../../fixture/base.fixture';
-import { CheckoutPage } from '../../pages/checkout.page';
-import { Checkout2Page } from '../../pages/checkout2.page';
-import { CheckoutCompletePage } from '../../pages/checkoutComplete.page';
-import * as DATA_INDEX from '../../test-data/data-index';
+import { Checkout2Page, CheckoutCompletePage } from '../../pages/page-index';
+import { PRODUCTS, USERS } from '../../test-data/data-index';
+import { URLS } from '../../config/config-index';
 
-const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
-const cartPageUrl = 'https://www.saucedemo.com/cart.html';
-const checkoutPage2Url = 'https://www.saucedemo.com/checkout-step-two.html';
-const checkoutCompleteUrl = 'https://www.saucedemo.com/checkout-complete.html';
-
+const URL = URLS.SAUCEDEMO;
 const checkInfo = {
-	firstName: DATA_INDEX.USERS.STANDARD_USER.firstName,
-	lastName: DATA_INDEX.USERS.STANDARD_USER.lastName,
-	postalCode: DATA_INDEX.USERS.STANDARD_USER.postalCode,
+	firstName: USERS.STANDARD_USER.firstName,
+	lastName: USERS.STANDARD_USER.lastName,
+	postalCode: USERS.STANDARD_USER.postalCode,
 };
 const itemsToAdd = [
-	DATA_INDEX.PRODUCTS.BACKPACK,
-	DATA_INDEX.PRODUCTS.BIKE_LIGHT,
-	DATA_INDEX.PRODUCTS.RED_TSHIRT,
-	DATA_INDEX.PRODUCTS.FLEECE_JACKET,
+	PRODUCTS.BACKPACK,
+	PRODUCTS.BIKE_LIGHT,
+	PRODUCTS.RED_TSHIRT,
+	PRODUCTS.FLEECE_JACKET,
 ];
 
 test.describe('Checkout Functionality', () => {
@@ -37,7 +37,7 @@ test.describe('Checkout Functionality', () => {
 
 	test('Cancel checkout 1', async ({ checkoutPage, page }) => {
 		await checkoutPage.cancelCheckout();
-		await expect(page).toHaveURL(cartPageUrl);
+		await expect(page).toHaveURL(URL.cartPathUrl);
 	});
 
 	test('Cancel checkout 2', async ({ checkoutPage, page }) => {
@@ -49,10 +49,10 @@ test.describe('Checkout Functionality', () => {
 		await checkoutPage.continueToNextStep();
 		checkout2Page = new Checkout2Page(page);
 		await checkout2Page.goto();
-		await expect(page).toHaveURL(checkoutPage2Url);
+		await expect(page).toHaveURL(URL.checkoutStepTwoPathUrl);
 
 		await checkout2Page.cancelCheckout();
-		await expect(page).toHaveURL(inventoryPageUrl);
+		await expect(page).toHaveURL(URL.inventoryPathUrl);
 	});
 
 	test('Checkout overview and finish', async ({ checkoutPage, page }) => {
@@ -64,7 +64,7 @@ test.describe('Checkout Functionality', () => {
 			);
 			checkoutPage.continueToNextStep();
 			checkout2Page = new Checkout2Page(page);
-			await expect(page).toHaveURL(checkoutPage2Url);
+			await expect(page).toHaveURL(URL.checkoutStepTwoPathUrl);
 		});
 
 		await test.step('final checkout', async () => {
@@ -86,12 +86,12 @@ test.describe('Checkout Functionality', () => {
 		await test.step('finish checkout', async () => {
 			await checkout2Page.finishCheckout();
 			checkoutCompletePage = new CheckoutCompletePage(page);
-			await expect(page).toHaveURL(checkoutCompleteUrl);
+			await expect(page).toHaveURL(URL.checkoutCompletePathUrl);
 		});
 
 		await test.step('Back to home', async () => {
 			await checkoutCompletePage.backToHome();
-			await expect(page).toHaveURL(inventoryPageUrl);
+			await expect(page).toHaveURL(URL.inventoryPathUrl);
 		});
 	});
 });

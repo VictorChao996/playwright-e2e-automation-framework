@@ -5,7 +5,7 @@
 
 import { test } from '../../fixture/base.fixture';
 import { expect } from '@playwright/test';
-import DATA_INDEX from '../../test-data/data-index';
+import * as DATA_INDEX from '../../test-data/data-index';
 
 const cartPageUrl = 'https://www.saucedemo.com/cart.html';
 
