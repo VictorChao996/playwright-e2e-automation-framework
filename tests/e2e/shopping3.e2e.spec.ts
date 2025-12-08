@@ -10,7 +10,7 @@ import { CartPage } from '../../pages/cart.page';
 import { CheckoutPage } from '../../pages/checkout.page';
 import { Checkout2Page } from '../../pages/checkout2.page';
 import { CheckoutCompletePage } from '../../pages/checkoutComplete.page';
-import DATA_INDEX from '../../test-data/data-index';
+import * as DATA_INDEX from '../../test-data/data-index';
 
 test('Main Process', async ({ page }) => {
 	const rootUrl = 'https://www.saucedemo.com';

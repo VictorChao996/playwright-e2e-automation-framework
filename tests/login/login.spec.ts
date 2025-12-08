@@ -1,34 +1,34 @@
 import { expect, test } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
-import DATA_INDEX from '../../test-data/data-index';
+import { USERS, MESSAGE } from '../../test-data/data-index';
+import { URLS } from '../../config/config-index';
 
-const loginPageUrl = 'https://www.saucedemo.com/';
-const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
+const URL = URLS.SAUCEDEMO;
 
 const validUsers = [
-	DATA_INDEX.USERS.STANDARD_USER,
-	DATA_INDEX.USERS.PROBLEM_USER,
-	DATA_INDEX.USERS.PERFORMANCE_GLITCH_USER,
-	DATA_INDEX.USERS.ERROR_USER,
-	DATA_INDEX.USERS.VISUAL_USER,
+	USERS.STANDARD_USER,
+	USERS.PROBLEM_USER,
+	USERS.PERFORMANCE_GLITCH_USER,
+	USERS.ERROR_USER,
+	USERS.VISUAL_USER,
 ];
 
 const invalidUsers = [
-	{ username: null, password: null, errorMsg: DATA_INDEX.MESSAGE.loginMessage.emptyUsername },
+	{ username: null, password: null, errorMsg: MESSAGE.loginMessage.emptyUsername },
 	{
 		username: 'invalid_user',
 		password: 'invalid_password',
-		errorMsg: DATA_INDEX.MESSAGE.loginMessage.invalidCredentials,
+		errorMsg: MESSAGE.loginMessage.invalidCredentials,
 	},
 	{
 		username: 'standard_user_with_empty_password',
 		password: null,
-		errorMsg: DATA_INDEX.MESSAGE.loginMessage.emptyPassword,
+		errorMsg: MESSAGE.loginMessage.emptyPassword,
 	},
 	{
-		username: DATA_INDEX.USERS.LOCKED_OUT_USER.username,
-		password: DATA_INDEX.USERS.LOCKED_OUT_USER.password,
-		errorMsg: DATA_INDEX.MESSAGE.loginMessage.lockedOutUser,
+		username: USERS.LOCKED_OUT_USER.username,
+		password: USERS.LOCKED_OUT_USER.password,
+		errorMsg: MESSAGE.loginMessage.lockedOutUser,
 	},
 ];
 
@@ -38,13 +38,13 @@ test.describe('Login Validation', () => {
 	test.beforeEach(async ({ page }) => {
 		loginPage = new LoginPage(page);
 		await loginPage.goto();
-		expect(loginPage.page.url()).toBe(loginPageUrl);
+		expect(loginPage.page.url()).toBe(URL.loginPathUrl);
 	});
 
 	validUsers.forEach((user) => {
 		test(`login with valid user: ${user.username}`, async ({ page }) => {
 			await loginPage.login(user.username, user.password);
-			await expect(page).toHaveURL(inventoryPageUrl);
+			await expect(page).toHaveURL(URL.inventoryPathUrl);
 		});
 	});
 

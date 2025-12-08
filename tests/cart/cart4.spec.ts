@@ -1,21 +1,21 @@
 /**
  * @fileoverview Cart Functionality Tests
- * @description This file contains tests for the cart page functionality using POM ,fixtures,fixture options, and test data.
+ * @description This file contains tests for the cart page functionality using
+ * 1.POM
+ * 2.fixture
+ * 3.fixture options
+ * 4.test data.
+ * 5. Confix data import
  */
 
 import { expect } from '@playwright/test';
 import { test } from '../../fixture/base.fixture';
-import * as DATA_INDEX from '../../test-data/data-index';
+import { URLS } from '../../config/config-index';
+import { PRODUCTS } from '../../test-data/data-index';
 
-const inventoryPageUrl = 'https://www.saucedemo.com/inventory.html';
-const checkoutPageUrl = 'https://www.saucedemo.com/checkout-step-one.html';
-
+const URL = URLS.SAUCEDEMO;
 //NOTE: 可隨時調整加入購物車的商品
-const itemsToAdd = [
-	DATA_INDEX.PRODUCTS.BACKPACK,
-	DATA_INDEX.PRODUCTS.BIKE_LIGHT,
-	DATA_INDEX.PRODUCTS.FLEECE_JACKET,
-];
+const itemsToAdd = [PRODUCTS.BACKPACK, PRODUCTS.BIKE_LIGHT, PRODUCTS.FLEECE_JACKET];
 
 test.describe('Cart Functionality', () => {
 	//NOTE: fixture options 傳入 itemsToAdd
@@ -37,12 +37,12 @@ test.describe('Cart Functionality', () => {
 
 	test('chekout cart items', async ({ cartPage, page }) => {
 		await cartPage.gotoCheckout();
-		await expect(page).toHaveURL(checkoutPageUrl);
+		await expect(page).toHaveURL(URL.checkoutStepOnePathUrl);
 	});
 
 	test('Back to inventory page', async ({ cartPage, page }) => {
 		await cartPage.backToInventory();
-		await expect(page).toHaveURL(inventoryPageUrl);
+		await expect(page).toHaveURL(URL.inventoryPathUrl);
 	});
 
 	test('remove products from cart', async ({ cartPage }) => {
